@@ -20,11 +20,11 @@ export default function App() {
     green: 255,
     blue: 255,
   });
+  const [AllowScroll, setAllowScroll] = useState(true);
 
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        /* setBackgroudColor({ ...BackgroundColor, blue: 0 }); */
         setMenuVisibility(!MenuVisibility);
       }}
     >
@@ -46,10 +46,12 @@ export default function App() {
             horizontal
             snapToInterval={WIDTH - 15}
             decelerationRate="fast"
+            canCancelContentTouches={AllowScroll}
           >
             <TouchableWithoutFeedback>
               <View style={[styles.menuElements, { marginLeft: 20 }]}>
                 <SliderMenu
+                  setAllowScroll={(value) => setAllowScroll(value)}
                   BackgroundColor={BackgroundColor}
                   setBackgroundColor={(color) => setBackgroundColor(color)}
                 ></SliderMenu>

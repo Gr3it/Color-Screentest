@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, TouchableWithoutFeedback } from "react-native";
 import Slider from "react-native-slider";
 
 const SliderComponent = ({
@@ -7,11 +7,16 @@ const SliderComponent = ({
   iconColor,
   BackgroundColor,
   setBackgroundColor,
+  setAllowScroll,
 }) => {
   return (
     <View style={styles.row}>
       <View style={[styles.icon, { backgroundColor: iconColor }]}></View>
       <Slider
+        onSlidingStart={() => {
+          setAllowScroll(false);
+        }}
+        onSlidingComplete={() => setAllowScroll(true)}
         style={styles.slider}
         minimumValue={0}
         maximumValue={255}
@@ -50,7 +55,7 @@ const styles = StyleSheet.create({
     width: 40,
     textAlign: "right",
   },
-  slider: { width: "70%", height: 40 },
+  slider: { width: "60%", height: 40 },
   thumb: {
     width: 30,
     height: 30,
