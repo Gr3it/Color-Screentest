@@ -4,18 +4,18 @@ import {
   Dimensions,
   StyleSheet,
   TouchableWithoutFeedback,
-  Text,
   View,
   ScrollView,
 } from "react-native";
 import Colors from "./components/Colors";
+import SliderMenu from "./components/SliderMenu";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 
 export default function App() {
   const [MenuVisibility, setMenuVisibility] = useState(true);
-  const [BackgroundColor, setBackgroudColor] = useState({
+  const [BackgroundColor, setBackgroundColor] = useState({
     red: 255,
     green: 255,
     blue: 255,
@@ -40,18 +40,28 @@ export default function App() {
           style={
             MenuVisibility ? styles.scrollContainer : styles.scrollContainerHide
           }
-          onStartShouldSetResponder={() => true}
         >
           <ScrollView
             showsHorizontalScrollIndicator={false}
             horizontal
             snapToInterval={WIDTH - 15}
-            decelerationRate="normal"
+            decelerationRate="fast"
           >
-            <View style={[styles.menuElements, { marginLeft: 20 }]}></View>
-            <View style={[styles.menuElements, { marginRight: 20 }]}>
-              <Colors></Colors>
-            </View>
+            <TouchableWithoutFeedback>
+              <View style={[styles.menuElements, { marginLeft: 20 }]}>
+                <SliderMenu
+                  BackgroundColor={BackgroundColor}
+                  setBackgroundColor={(color) => setBackgroundColor(color)}
+                ></SliderMenu>
+              </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback>
+              <View style={[styles.menuElements, { marginRight: 20 }]}>
+                <Colors
+                  setBackgroundColor={(color) => setBackgroundColor(color)}
+                ></Colors>
+              </View>
+            </TouchableWithoutFeedback>
           </ScrollView>
         </View>
         <StatusBar hidden />
